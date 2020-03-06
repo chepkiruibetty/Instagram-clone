@@ -8,6 +8,9 @@ verify_ssl = true
 [packages]
 django = "==1.11.28"
 pillow = "*"
+django-registration = "==2.4.1"
+boostrap4 = "*"
+django-crispy-forms = "*"
 
 [requires]
 python_version = "3.6"
