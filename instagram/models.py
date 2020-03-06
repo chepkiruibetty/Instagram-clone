@@ -9,9 +9,10 @@ class Image(models.Model):
     image_caption = models.CharField(blank=True, max_length=500)
     user_name = models.ForeignKey(User, on_delete=models.CASCADE)
     profile = models.ForeignKey("Profile", on_delete=models.CASCADE, blank=True)
-    likes = models.PositiveIntegerField(User,blank=True)
+    likes = models.PositiveIntegerField(default=0)
     posted = models.DateTimeField(auto_now_add=True, blank=True)
-
+    def __str__(self):
+        return self.image
     def save_image(self):
         self.save()
 
