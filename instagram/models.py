@@ -8,8 +8,8 @@ class Image(models.Model):
     image_name = models.CharField(blank=True, max_length=30)
     image_caption = models.CharField(blank=True, max_length=500)
     user_name = models.ForeignKey(User, on_delete=models.CASCADE)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True)
-    likes = models.PositiveIntegerField(User,blank=True,related_name='likes')
+    profile = models.ForeignKey("Profile", on_delete=models.CASCADE, blank=True)
+    likes = models.PositiveIntegerField(User,blank=True)
     posted = models.DateTimeField(auto_now_add=True, blank=True)
 
     def save_image(self):
@@ -42,7 +42,7 @@ class Profile(models.Model):
     name = models.CharField(blank = True,max_length = 30)
     email = models.CharField(blank = True, max_length = 100)
     bio = models.TextField(max_length=100)
-    avatar = models.ImageField(upload_to = 'avatar/')
+    profile_image = models.ImageField(upload_to = 'profile/')
     follow = models.ManyToManyField(User, related_name='follows',blank = True)
     def __str__(self):
         return self.name
@@ -69,3 +69,25 @@ class Profile(models.Model):
         username = cls.objects.filter(name__icontains=searched_name)
 
         return username
+    
+class Comments(models.Model):
+    comment = models.TextField(blank = True, max_length=500)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,blank = True)
+    image = models.ForeignKey(Image, blank=True, on_delete=models.CASCADE)
+    posted = models.DateTimeField(auto_now_add=True,blank = True)
+
+
+    def __str__(self):\
+        return self.comment
+
+    def save_comment(self):
+        self.save()
+    
+    
+    @classmethod
+    def update_comment(cls,id,new_comment):
+        cls.objects.filter(id=id).update(comment = new_comment)
+
+    @classmethod
+    def delete_comment(cls,id):
+        cls.objects.filter(id).delete()
