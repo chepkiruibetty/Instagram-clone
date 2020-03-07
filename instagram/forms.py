@@ -3,10 +3,6 @@ from  .models import Profile,Comments,Image
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-class UserForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('full_name', 'user_name', 'email','password1','password2')
         
 class ImageForm(forms.ModelForm):
     class Meta:

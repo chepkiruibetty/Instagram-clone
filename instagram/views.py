@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from .models import *
+from . models import *
 from django.contrib.auth.forms import UserCreationForm
+from . forms import ImageForm,ProfileForm,CommentsForm
 from django.contrib.auth import login, authenticate
 
 # Create your views here.
@@ -37,10 +38,20 @@ def upload_image(request):
         if form.is_valid():
             image = form.save(commit=False)
             image.user = current_user
-            image.save()
-        return redirect('home')
+        return redirect('index')
 
     else:
         form = ImageForm()
         return render(request,'instagram/upload_image.html', {"form":form})
-
+    
+@login_required (login_url='/accounts/register/')          
+def image_likes(request,id):
+    image =  Image.get_single_photo(id)
+    user = request.user
+    user_id = user.id
+    
+    if user.is_authenticated:
+    
+        image.save()
+        
+    return redirect('index')
