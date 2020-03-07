@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from .models import Profile,Image,Comments
+from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 
@@ -16,4 +16,17 @@ def profile(request):
     profile_info = Profile.objects.filter(user=current_user).first()
     posts =  request.user.image_set.all()
     return render(request,'instagram/profile.html',{"images":posts,"profile":profile_info,"current_user":current_user})
-        
+
+def search_user(request):
+    
+    if 'search_user' in request.GET and request.GET["search_user"]:
+
+        search_term = request.GET.get("search_user")
+        searched_user = User.objects.filter(username__icontains=search_term)
+        message = f"{search_term}"  
+        return render(request, 'instagram/search.html', {"message": message, "users": searched_user})
+
+    else:
+        message = "You haven't searched for any term "
+        return render(request, 'socioapp/search_results.html', {"message": message})
+
