@@ -1,0 +1,25 @@
+{%extends 'instagram/base.html'%} {% block content %} {% load static%} {{ block.super}} {% block styles %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}"> {% endblock %}
+<div class="container">
+    
+    <!-- Looping through projects   -->
+    <div class="row">
+        {% for image in images %}
+        <div class="card" style="width: 50%; align-content: center">
+            <p>
+                <img style="width:50px; height:50px ; border-radius:50%;" src=" {{image.profile.profile_image.url}}"
+                    class="img-responsive" alt=" image">{{image.profile.name}}
+            </p>
+            <a href="">
+                <img src="{{image.image.url}}" class=" img img-responsive" alt="Image" style="width:100%">
+            </a>
+            <h2 class="text-center"> {{ image.name }} </h2>
+            <p class="text-center"> {{ image.caption }} </p>
+
+        </div><br> {% endfor %}
+    </div>
+</div>
+</div>
+<h1>post your photos!</h1>
+</div>
+{% endblock%}
