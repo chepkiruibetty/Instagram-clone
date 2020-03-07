@@ -28,5 +28,19 @@ def search_user(request):
 
     else:
         message = "You haven't searched for any term "
-        return render(request, 'socioapp/search_results.html', {"message": message})
+        return render(request, 'instagram/search_results.html', {"message": message})
+    
+def upload_image(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = ImageForm(request.POST,request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.user = current_user
+            image.save()
+        return redirect('home')
+
+    else:
+        form = ImageForm()
+        return render(request,'instagram/upload_image.html', {"form":form})
 
