@@ -11,8 +11,11 @@ class Image(models.Model):
     profile = models.ForeignKey("Profile", on_delete=models.CASCADE, blank=True)
     likes = models.PositiveIntegerField(default=0)
     posted = models.DateTimeField(auto_now_add=True, blank=True)
+    
     def __str__(self):
-        return self.image
+        return self.image_name
+    
+    
     def save_image(self):
         self.save()
 
@@ -43,7 +46,7 @@ class Profile(models.Model):
     name = models.CharField(blank = True,max_length = 30)
     email = models.CharField(blank = True, max_length = 100)
     bio = models.TextField(max_length=100)
-    profile_image = models.ImageField(upload_to = 'profile/')
+    profile_image = models.ImageField(upload_to = 'images/')
     follow = models.ManyToManyField(User, related_name='follows',blank = True)
     def __str__(self):
         return self.name
