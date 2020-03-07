@@ -1,35 +1,13 @@
-{% extends 'instagram/base.html' %}
-
-{% block content %}
+{% extends 'instagram/base.html' %} {% block content %}
 <div class="container">
-    <!--user profile info -->
-    <div class="row ">
-            <div class="col-sm-6 col-md-4">
-            
-                    <h5 class="user">{{profile.user.username}}</h5>
-                    <img style="width:40%; border-radius:99%;" src=" {{profile.profile_image.url}}">
-                </div>
-        
-        <div class="col-sm-6 col-md-6">
-            <hr>
-            {{profile.bio}}
-
+    <div class="content-section">
+        <div class="media">
+          <img class="rounded-circle account-img" src=" {{image.profile.profile_image.url}}">
+          <div class="media-body">
+            <h2 class="account-heading">{{ user.username }}</h2>
+            <p class="text-secondary">{{ user.email }}</p>
+          </div>
         </div>
-
-        <!-- Edit Profile section -->
-        <div class="col-sm-6 col-md-2">
-            <a href="" class="btn btn-outline-info btn-sm">Edit Profile</a>
-        </div>
-    </div>
-    <h3 class="text-center">My Photos</h3>
-    <hr>
-    <div class="row mt-2">
-        {% for image in images %}
-        <div class="col-sm-12 col-md-6 col-lg-3">
-            <img src="{{image.image.url}}" alt="" class="img-thumbnail img-responsive img-fluid">
-        </div>
-        {% endfor %}
-
-    </div>
-</div>
+        <!-- FORM HERE -->
+      </div>
 {% endblock %}
