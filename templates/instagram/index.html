@@ -1,5 +1,5 @@
 {% extends 'instagram/base.html' %}
-
+{% load static %}
 {% block content %}
 <div class="container">
 
@@ -12,7 +12,7 @@
 
         </div>
         <div class=" col-md-6 mx-auto">
-            <div class="card mb-2" style="width: 25rem;">
+            <div class="card mb-2 m-0" style="width:rem;">
                 <div class="card-header">
                     <span><img src="{{image.profile.profile_image.url}}" alt=""
                             data-target="#{{image.image_name}}{{image.id}}" data-toggle="modal"
@@ -20,18 +20,24 @@
                     <span>
                         <p>{{image.user.username}}</p>
                     </span>
-
                 </div>
-                <img src="{{image.image.url}}" alt="" class="img-thumbnail img-responsive img-fluid">
-
+                
+                <img src="{{image.image.url}}" alt="" class="img-thumbnail img-responsive img-fluid m-0">
                 <div class="card-footer">
-                    <a href="{% url 'likes' image.id%}" class="btn btn-sm btn-outline-info">{{image.likes}} Likes</a>
+                    <a href="#" class="action-icons"><i class="fa fa-heart-o"></i>{{image.likes}} likes </a>
 
-                    <a href="{% url 'Comments' image.id %}" class="btn btn-outline-info btn-sm">Add comments</a>
-                    <a href="{% url 'comments' image.id %}" class="btn btn-outline-info btn-sm">view comments</a>
+                    {% for comment in comments %}
+                    <p>
+                        <span class="font-weight-bold">{{ comment.author }} &middot;</span>
+                        {{ comment }}
+                    </p>
+                    {% endfor %}
+                    <div class="card-actions">
+                        <input class="comments-input" type="text" placeholder="Add a comment..." />
+                        <a href="{% url 'Comments' image.id%}" class="action-icons">click</a>
+                    </div>
+                    <p class="">{{ image.date_posted|timesince}}</p>
                 </div>
-                <p class="text-center">{{image.image_name}}</p>
-                <p class="text-center">{{image.image_caption}}</p>
             </div>
 
 
@@ -40,26 +46,5 @@
         <div class=" col-md-3 "></div>
     </div>
 
-    <div class="modal fade" id="{{image.image_name}}{{image.id}}" tabindex="-1" role="dialog"
-        aria-labelledby="examplemodal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title text-center" id="modaltitle">{{image.image_name}}</h4>
-
-
-                </div>
-                <div class="modal-body text-center">
-                    <img src="{{image.image.url}}" alt="" width="100%" height="100%" class="img-top">
-                </div>
-                <div class="modal-footer">
-                    <p class="mr-auto">{{image.image_caption}}</p>
-
-                    <button type="button" class="btn btn-sm btn-outline-info" data-dismiss="modal">Close</button>
-
-                </div>
-            </div>
-        </div>
-    </div>
     {% endfor %}
     {% endblock %}

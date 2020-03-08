@@ -1,15 +1,18 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from . models import *
+from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
-from . forms import ImageForm,ProfileForm,CommentsForm
-from django.contrib.auth import login, authenticate
+from .forms import ImageForm,ProfileForm,CommentsForm
+from django.contrib.auth import login
+from .models import Comments, Image
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
 def index(request):
     images=Image.objects.all()
-    return render(request,'instagram/index.html',{"images":images})
+    comments=Comments.objects.all()
+    return render(request,'instagram/index.html',{"images":images,"comments":comments})
 
 @login_required
 def profile(request):
@@ -18,18 +21,18 @@ def profile(request):
     posts =  request.user.image_set.all()
     return render(request,'registration/profile.html',{"images":posts,"profile":profile_info,"current_user":current_user})
 
-def search_user(request):
-    
-    if 'search_user' in request.GET and request.GET["search_user"]:
+def search_username(request):
 
-        search_term = request.GET.get("search_user")
-        searched_user = User.objects.filter(username__icontains=search_term)
-        message = f"{search_term}"  
-        return render(request, 'instagram/search.html', {"message": message, "users": searched_user})
+    if 'name' in request.GET and request.GET["name"]:
+        searched_name = request.GET.get("name")
+        username = Profile.search_by_name(searched_name)
+        message = f"{searched_name}"
+
+        return render(request, 'search.html', {"message": message, "username": username})
 
     else:
-        message = "You haven't searched for any term "
-        return render(request, 'instagram/search_results.html', {"message": message})
+        message = "Sorry, No one by this username"
+        return render(request, 'instagram/search.html', {"message": message})
     
 def upload_image(request):
     current_user = request.user
@@ -57,11 +60,11 @@ def image_likes(request,id):
     return redirect('index')
 
 
-def comments(request,id):
-    comments = Comments.get_comments(id)
-    number = len(comments   )
+# def comments(request,id):
+#     comments = Comments.get_comments(id)
+#     number = len(comments   )
     
-    return render(request,'instagram/comments.html',{"comments":comments,"number":number})        
+#     return render(request,'instagram/comments.html',{"comments":comments,"number":number})        
 
 def add_comment(request,id):
     current_user = request.user
@@ -94,6 +97,7 @@ def edit_profile(request):
         form = ProfileForm()
         return render(request,'registration/edit_profile.html',{"form":form})
     
+    
 def create_post(request):
     current_user = request.user
     if request.method == 'POST':
@@ -105,6 +109,6 @@ def create_post(request):
 
     else:
         form = ImageForm()
-        return render(request,'instagram/create_post.html',{"form":form})
+        return render(request,'instagram/new_post.html',{"form":form})
     
-    
+

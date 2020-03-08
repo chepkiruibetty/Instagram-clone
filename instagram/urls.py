@@ -7,12 +7,15 @@ urlpatterns=[
     url(r'^$', views.index, name='index'), 
     url(r'^profile/$', views.profile,name='profile'),
     url(r'^edit/$', views.edit_profile,name='edit_profile'),
-    url(r'^user/$',views.search_user,name='search_user'),
+    url(r'^user/$',views.search_username,name='search_username'),
     url(r'^image/$', views.upload_image,name='upload_image'),
     url(r'^likes/(\d+)/$' , views.image_likes, name='likes'),
-    url(r'^comment/(\d+)/$' ,views.comments,name='comments'),
+    # url(r'^comment/(\d+)/$' ,views.comments,name='comments'),
     url(r'^new_comment/(\d+)/$' ,views.add_comment,name='Comments'),
-    url(r'^edit/$', views.edit_profile,name='edit_profile'),
+    url(r'^post/$', views.create_post,name='create_post'),
+    
+
+
     
     
 
