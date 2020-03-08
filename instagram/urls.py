@@ -12,6 +12,7 @@ urlpatterns=[
     url(r'^likes/(\d+)/$' , views.image_likes, name='likes'),
     url(r'^comment/(\d+)/$' ,views.comments,name='comments'),
     url(r'^new_comment/(\d+)/$' ,views.add_comment,name='Comments'),
+    url(r'^edit/$', views.edit_profile,name='edit_profile'),
     
     
 

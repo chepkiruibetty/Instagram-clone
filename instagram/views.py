@@ -84,13 +84,27 @@ def add_comment(request,id):
 def edit_profile(request):
     current_user = request.user
     if request.method == 'POST':
-        form = ImageForm(request.POST,request.FILES)
+        form = ProfileForm(request.POST,request.FILES)
         if form.is_valid():
             image = form.save(commit=False)
             image.user = current_user
         return redirect('profile')
 
     else:
-        form = ImageForm()
+        form = ProfileForm()
         return render(request,'registration/edit_profile.html',{"form":form})
+    
+def create_post(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = ImageForm(request.POST,request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.user = current_user
+        return redirect('index')
+
+    else:
+        form = ImageForm()
+        return render(request,'instagram/create_post.html',{"form":form})
+    
     
