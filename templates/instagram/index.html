@@ -27,7 +27,7 @@
                 <div class="card-footer">
                     <a href="{% url 'likes' image.id%}" class="btn btn-sm btn-outline-info">{{image.likes}} Likes</a>
 
-                    <a href="{}" class="btn btn-outline-info btn-sm">Add comments</a>
+                    <a href="{% url 'Comments' image.id %}" class="btn btn-outline-info btn-sm">Add comments</a>
                     <a href="{% url 'comments' image.id %}" class="btn btn-outline-info btn-sm">view comments</a>
                 </div>
                 <p class="text-center">{{image.image_name}}</p>
