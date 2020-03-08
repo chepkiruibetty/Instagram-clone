@@ -16,7 +16,7 @@ def profile(request):
     current_user=request.user
     profile_info = Profile.objects.filter(user=current_user).first()
     posts =  request.user.image_set.all()
-    return render(request,'instagram/profile.html',{"images":posts,"profile":profile_info,"current_user":current_user})
+    return render(request,'registration/profile.html',{"images":posts,"profile":profile_info,"current_user":current_user})
 
 def search_user(request):
     
@@ -80,3 +80,17 @@ def add_comment(request,id):
     else:
         form = CommentsForm()
         return render(request,'instagram/add_comment.html',{"form":form,"image":image})  
+    
+def edit_profile(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = ImageForm(request.POST,request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.user = current_user
+        return redirect('profile')
+
+    else:
+        form = ImageForm()
+        return render(request,'registration/edit_profile.html',{"form":form})
+    
