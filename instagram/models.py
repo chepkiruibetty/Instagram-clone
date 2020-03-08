@@ -96,6 +96,12 @@ class Comments(models.Model):
     @classmethod
     def update_comment(cls,id,new_comment):
         cls.objects.filter(id=id).update(comment = new_comment)
+        
+    @classmethod
+    def get_comments(cls,id):
+        comments = cls.objects.filter(image__id=id)
+        return comments
+    
 
     @classmethod
     def delete_comment(cls,id):
