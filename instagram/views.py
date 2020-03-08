@@ -63,3 +63,20 @@ def comments(request,id):
     
     return render(request,'instagram/comments.html',{"comments":comments,"number":number})        
 
+def add_comment(request,id):
+    current_user = request.user
+    image = Image.get_single_photo(id=id)
+    if request.method == 'POST':
+        form = CommentsForm(request.POST)
+        print(form)
+        
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = current_user
+            comment.image_id = id
+            comment.save()
+        return redirect('index')
+
+    else:
+        form = CommentsForm()
+        return render(request,'instagram/add_comment.html',{"form":form,"image":image})  
