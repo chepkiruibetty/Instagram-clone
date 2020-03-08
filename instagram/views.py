@@ -55,3 +55,11 @@ def image_likes(request,id):
         image.save()
         
     return redirect('index')
+
+
+def comments(request,id):
+    comments = Comments.get_comments(id)
+    number = len(comments   )
+    
+    return render(request,'instagram/comments.html',{"comments":comments,"number":number})        
+
