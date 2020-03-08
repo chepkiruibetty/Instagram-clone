@@ -54,7 +54,7 @@ class Profile(models.Model):
     profile_image = models.ImageField(upload_to = 'images/')
     follow = models.ManyToManyField(User, related_name='follows',blank = True)
     def __str__(self):
-        return self.name
+        return self.profile_image.url
 
     def save_profile(self):
         self.save()
