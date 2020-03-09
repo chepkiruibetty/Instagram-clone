@@ -1,11 +1,10 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from . models import *
-from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from .forms import ImageForm,ProfileForm,CommentsForm
 from django.contrib.auth import login
-from .models import Comments, Image
+
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
@@ -104,4 +103,3 @@ def create_post(request):
         form = ImageForm()
         return render(request,'instagram/new_post.html',{"form":form})
     
-

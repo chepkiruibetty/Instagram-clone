@@ -2,29 +2,22 @@
 <div class="container">
 
     <div class="row">
-        {% if username %}
-        <h2>Found {{ username|length }} of searched term {{message}}.</h2>
+        {% if serched_user %}
+        <h2>Found {{ serched_user|length }} of searched term {{message}}.</h2>
         {% else %}
-        <h2> Found 0 users of the username {{message}}</h2>
+        <h2> Found 0 users of the searched_user {{message}}</h2>
         {% endif %}
-
     </div>
-
     <div class="row">
-
-        {% if username %} {% for name in username %}
+        {% if serched_user %}
+        {% for searched_user in searched_user %}
         <div class="col-md-2"></div>
         <div class="col-sm-6 col-md-8">
             <a href="{% url 'profile' name.id%}">
-                <img src="{image.profile.profile_image.url}}" class="img-responsive" alt="Image" style="width:100%">{{image.user.username}}
+                <img src="" class="img-responsive" alt="Image" style="width:100%">{{name.username}}
             </a>
-
         </div>
-        <div class="col-md-2"></div>
-
-
-
-        {% endfor %} {% endif %}
+        <div class="col-md-2"></div>        {% endfor %} {% endif %}
     </div>
 </div>
 {% endblock %}

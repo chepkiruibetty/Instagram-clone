@@ -53,6 +53,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length=100)
     profile_image = models.ImageField(upload_to = 'images/')
     follow = models.ManyToManyField(User, related_name='follows',blank = True)
+    
     def __str__(self):
         return self.profile_image.url
 

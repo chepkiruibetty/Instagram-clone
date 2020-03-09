@@ -75,6 +75,9 @@ Open the application on your browser `127.0.0.1:8000`.
 ## Contact Information   
 If you have any question or contributions, please email me at [chepkiruibetty64@gmail.com]  
 
+## Database
+<img src="db/diagram.png">
+
 ## codebeat
 - [![codebeat badge](https://codebeat.co/badges/05f71e99-9f1d-4076-a6dc-5a2412c940da)](https://codebeat.co/projects/github-com-chepkiruibetty-instagram-clone-master)
 
