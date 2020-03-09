@@ -23,9 +23,9 @@ def profile(request):
 
 def search_username(request):
 
-    if 'name' in request.GET and request.GET["name"]:
-        searched_name = request.GET.get("name")
-        username = Profile.search_by_name(searched_name)
+    if 'search_username' in request.GET and request.GET["search_username"]:
+        searched_name = request.GET.get("search_username")
+        searched_user = User.objects.filter(username__icontains=search_username)
         message = f"{searched_name}"
 
         return render(request, 'search.html', {"message": message, "username": username})
@@ -58,13 +58,6 @@ def image_likes(request,id):
         image.save()
         
     return redirect('index')
-
-
-# def comments(request,id):
-#     comments = Comments.get_comments(id)
-#     number = len(comments   )
-    
-#     return render(request,'instagram/comments.html',{"comments":comments,"number":number})        
 
 def add_comment(request,id):
     current_user = request.user
