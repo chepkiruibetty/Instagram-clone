@@ -134,4 +134,3 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-django_heroku.settings(locals())
