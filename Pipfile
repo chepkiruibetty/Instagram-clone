@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-django = "==1.11.28"
+django = "==1.11.29"
 pillow = "*"
 django-registration = "==2.4.1"
 django-crispy-forms = "*"
